@@ -70,13 +70,12 @@ fun AboutUsPage(
             AIDeveloperSection()
             Spacer(modifier = Modifier.height(4.dp))
             HorizontalDivider()
-
             Spacer(modifier = Modifier.height(24.dp))
-
-            // Developer Section
             DeveloperSection1()
             Spacer(modifier = Modifier.height(24.dp))
             HorizontalDivider()
+            Spacer(modifier = Modifier.height(4.dp))
+            DataCollectionAndPreparation()
             SpacerVertical(24)
             ThanksToICT()
             Spacer(modifier = Modifier.height(24.dp))
@@ -189,8 +188,7 @@ private fun DeveloperSection1() {
             fontSize = 16.sp,
             color = MaterialTheme.colorScheme.secondary
         )
-        Spacer(modifier = Modifier.height(8.dp))
-
+        SpacerVertical(16)
         ImageView(
             res = R.drawable.khalekuzzaman,
             modifier = Modifier
@@ -232,7 +230,64 @@ fun ColumnScope.DeptAndUniversity(modifier: Modifier = Modifier) {
 
 
 
+@Composable
+private fun DataCollectionAndPreparation() {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(8.dp)
+    ) {
+        TextHeading3(text = "Data Collection and Preparation")
+        SpacerVertical(8)
+        ImageView(
+            res = R.drawable.tanvir_ah,
+            modifier = Modifier
+                .size(150.dp)
+                .clip(CircleShape)
+                //   .background(Color.White)
+                .border(2.dp, MaterialTheme.colorScheme.primary, CircleShape)
+        )
+        SpacerVertical(8)
+        Text(
+            text = "Tanvir Ahamed",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+        SpacerVertical(16)
 
+        ImageView(
+            res = R.drawable.suvo,
+            modifier = Modifier
+                .size(150.dp)
+                .clip(CircleShape)
+                .border(2.dp, MaterialTheme.colorScheme.primary, CircleShape)
+        )
+        SpacerVertical(8)
+        Text(
+            text = "S. M. Shadman Akber Shuvo",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+        SpacerVertical(16)
+        ImageView(
+            res = R.drawable.nafi,
+            modifier = Modifier
+                .size(150.dp)
+                .clip(CircleShape)
+                //   .background(Color.White)
+                .border(2.dp, MaterialTheme.colorScheme.primary, CircleShape)
+        )
+        SpacerVertical(8)
+        Text(
+            text = "Md. Nafiur Rahman",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+
+    }
+}
 
 
 
