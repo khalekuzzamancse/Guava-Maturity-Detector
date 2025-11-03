@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,7 +11,7 @@ import '../classifier/classifier_screen.dart';
 class GalleryScreen extends StatelessWidget {
   final Function(Uint8List byteArray) onProcessRequest;
   final classifier = ImageClassifier();
-  GalleryScreen({required this.onProcessRequest});
+  GalleryScreen({super.key, required this.onProcessRequest});
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +33,9 @@ class GalleryScreen extends StatelessWidget {
                     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
                     if (pickedFile != null) {
                       final bytes= await pickedFile.readAsBytes();
-                      final result=  await classifier.classifyImage(bytes, 4);
-                      print("Example:$result");
-                      onProcessRequest(bytes);
+                      Navigator.push(context, MaterialPageRoute(builder: (_){
+                        return ClassificationScreen(imageBytes:bytes);
+                      }));
                     }
                   },
                 ),
@@ -47,9 +46,9 @@ class GalleryScreen extends StatelessWidget {
                     final pickedFile = await ImagePicker().pickImage(source: ImageSource.camera);
                     if (pickedFile != null) {
                       final bytes= await pickedFile.readAsBytes();
-                      final result=  await classifier.classifyImage(bytes, 4);
-                      print("Example:$result");
-                     onProcessRequest(bytes);
+                      Navigator.push(context, MaterialPageRoute(builder: (_){
+                        return ClassificationScreen(imageBytes:bytes);
+                      }));
                     }
                   },
                 ),
@@ -73,12 +72,9 @@ class GalleryScreen extends StatelessWidget {
                     imagePath: imagePath,
                     onImageClick: (_)async{
                       final byteData = await rootBundle.load(imagePath);
-                      final result=  await classifier.classifyImage(byteData.buffer.asUint8List(), 4);
-                      print("Example:$result");
                       Navigator.push(context, MaterialPageRoute(builder: (_){
                        return ClassificationScreen(imageBytes:byteData.buffer.asUint8List());
                       }));
-                      onProcessRequest(byteData.buffer.asUint8List());
                     },
                   );
                 }).toList(),
@@ -108,7 +104,7 @@ class ImageItem extends StatelessWidget {
   final String imagePath;
   final Function(File) onImageClick;
 
-  ImageItem({required this.imagePath, required this.onImageClick});
+  const ImageItem({super.key, required this.imagePath, required this.onImageClick});
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +139,7 @@ class BottomSheetItem extends StatelessWidget {
   final IconData icon;
   final VoidCallback onClick;
 
-  BottomSheetItem({required this.label, required this.icon, required this.onClick});
+  const BottomSheetItem({super.key, required this.label, required this.icon, required this.onClick});
 
   @override
   Widget build(BuildContext context) {

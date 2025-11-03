@@ -130,26 +130,24 @@ class ImageWithProgress extends StatelessWidget {
       width: 200,
       height: 200,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
+        // borderRadius: BorderRadius.circular(12),
         color: Colors.white,
         border: Border.all(color: borderColor, width: 1),
       ),
       child: Stack(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(11),
-            child: Image.memory(
-              imageBytes,
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: double.infinity,
-            ),
+          Image.memory(
+            imageBytes,
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
           ),
           if (isLoading)
             Positioned.fill(child: RandomWaveDotGridLoader()),
         ],
       ),
     );
+
 
 
   }
