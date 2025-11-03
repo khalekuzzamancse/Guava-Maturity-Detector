@@ -1,39 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:guava_maturity_classifier/core/ui/core_ui.dart';
-import 'package:guava_maturity_classifier/feature/_core/_misc.dart';
+import 'package:guava_maturity_classifier/feature/_core/core_feature.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  VoidCallback onGalleryRequest;
+
+   HomeScreen({super.key,required this.onGalleryRequest});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: TextHeading1(text: "Guava Maturity Detector"),
+    return ScreenStrategy(
+      title: "Guava Maturity Classifier",
+      fab: CustomButtonView(
+        label: "Classify",
+        icon: Icons.camera_enhance_outlined,
+        onClick:onGalleryRequest,
       ),
-      body: PaddingScreenHorizontal(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SpacerVertical(16),
-            TextDescription(
-              text:
-                  "Detect Guava with ease! Our AI model identifies four different Guava classes accurately.",
-            ),
-            const SpacerVertical(16),
-            const SpacerVertical(24),
-            const FeatureList(),
-            const SpacerVertical(16),
-            const Spacer(),
-            const Divider(),
-            const SpacerVertical(16),
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Text("Thanks to ICT", style: TextStyle(fontSize: 14)),
-            ),
-            const SpacerVertical(64),
-          ],
-        ),
+      content: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SpacerVertical(16),
+          TextDescription(
+            text:
+                "Detect Guava with ease! Our AI model identifies four different Guava classes accurately.",
+          ),
+          const SpacerVertical(16),
+          const SpacerVertical(24),
+          const FeatureList(),
+          const SpacerVertical(16),
+          const Spacer(),
+          const Divider(),
+          const SpacerVertical(16),
+          const Align(
+            alignment: Alignment.centerLeft,
+            child: ThanksToICT(),
+          ),
+          const SpacerVertical(64),
+        ],
       ),
     );
   }

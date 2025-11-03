@@ -1,5 +1,6 @@
 part of 'core_ui.dart';
 
+
 class RandomWaveDotGridLoader extends StatefulWidget {
   final int rows;
   final int columns;
@@ -9,10 +10,10 @@ class RandomWaveDotGridLoader extends StatefulWidget {
 
   const RandomWaveDotGridLoader({
     Key? key,
-    this.rows = 10,
-    this.columns = 10,
-    this.dotSize = 20.0,
-    this.spacing = 10.0,
+    this.rows = 12,
+    this.columns = 12,
+    this.dotSize = 10.0,
+    this.spacing = 5.0,
     this.animationDuration = 300,
   }) : super(key: key);
 
@@ -25,11 +26,13 @@ class _RandomWaveDotGridLoaderState extends State<RandomWaveDotGridLoader>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final List<Color> _gridColors;
+  late final List<Animation<double>> _animatedAlpha;
   final _random = Random();
 
   @override
   void initState() {
     super.initState();
+
     _controller = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: widget.animationDuration),
@@ -45,6 +48,20 @@ class _RandomWaveDotGridLoaderState extends State<RandomWaveDotGridLoader>
       widget.rows * widget.columns,
           (_) => colors[_random.nextInt(colors.length)],
     );
+
+    // Generate the animated alpha values for each dot
+    _animatedAlpha = List.generate(widget.rows * widget.columns, (index) {
+      final delay = _random.nextInt(widget.animationDuration).toDouble();
+      return Tween<double>(begin: 1.0, end: 0.3).animate(
+        CurvedAnimation(
+          parent: _controller,
+          curve: Interval(
+            delay / widget.animationDuration, 1.0,
+            curve: Curves.linear,
+          ),
+        ),
+      );
+    });
   }
 
   @override
@@ -62,14 +79,12 @@ class _RandomWaveDotGridLoaderState extends State<RandomWaveDotGridLoader>
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(widget.columns, (col) {
             final idx = row * widget.columns + col;
-            final delay = (_random.nextInt(widget.animationDuration)).toDouble();
             return Padding(
               padding: EdgeInsets.all(widget.spacing / 2),
               child: AnimatedBuilder(
                 animation: _controller,
                 builder: (_, __) {
-                  final alpha =
-                      0.3 + 0.7 * (_controller.value + delay / widget.animationDuration) % 1;
+                  final alpha = _animatedAlpha[idx].value;
                   return Container(
                     width: widget.dotSize,
                     height: widget.dotSize,
@@ -87,6 +102,7 @@ class _RandomWaveDotGridLoaderState extends State<RandomWaveDotGridLoader>
     );
   }
 }
+
 
 // -------------------- DotGridLoader --------------------
 

@@ -1,6 +1,5 @@
 package com.kzcse.guava_detector.feature.classify
 
-import android.R.attr.tag
 import android.content.Context
 import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel

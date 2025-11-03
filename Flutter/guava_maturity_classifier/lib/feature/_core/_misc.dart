@@ -1,15 +1,14 @@
-import 'package:flutter/material.dart';
-
+part of 'core_feature.dart';
 
 class TextDescription extends StatelessWidget {
   final String text;
   final TextAlign textAlign;
 
   const TextDescription({
-    Key? key,
+    super.key,
     required this.text,
     this.textAlign = TextAlign.justify,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -178,3 +177,50 @@ class BackIcon extends StatelessWidget {
     );
   }
 }
+
+
+
+class CustomButtonView extends StatelessWidget {
+  final String label;
+  final IconData icon;
+  final VoidCallback onClick;
+
+  const CustomButtonView({
+    required this.label,
+    required this.icon,
+    required this.onClick,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onClick,
+      child: Material(
+        elevation: 8,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, color: Colors.white),
+              SizedBox(width: 4),
+              Text(
+                label,
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+

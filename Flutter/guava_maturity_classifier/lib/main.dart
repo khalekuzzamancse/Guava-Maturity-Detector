@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'feature/info/home_screen.dart';
+import 'feature/_navigation/navigation.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child:  HomeScreen());
+    return SafeArea(child:  RootNavigation());
 
   }
 }
